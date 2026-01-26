@@ -1,24 +1,16 @@
 "use strict";
 
 require("dotenv").config();
+
 const express = require("express");
 const app = express();
-const db = require("./db");
 
-const port = 3000;
+app.use(express.json());
 
-app.get("/api/jokes", async (req, res) => {
-  try {
-    const [rows] = await db.query("SELECT * FROM jokes");
-    res.json(rows);
-  } catch (err) {
-    console.error("DB error full", err);
-    res
-      .status(500)
-      .json({ error: "DB error", code: err.code, message: err.message });
-  }
-});
+const jokesRoutes = require("./routes/jokesRoutes");
+app.use("/api/jokes", jokesRoutes);
 
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
-  console.log(`On port ${port}`);
+  console.log(`Server is listening on port ${port}`);
 });
