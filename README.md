@@ -2,6 +2,6 @@
 
 The purpose of this project is to build a web.
 
-- React as front end
-- Express as back end
+- React as frontend
+- Express as backend
 - Mysql as database
