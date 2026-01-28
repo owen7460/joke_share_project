@@ -5,7 +5,7 @@ const db = require("../db");
 const getJokes = async (req, res) => {
   try {
     const [rows] = await db.query(
-      "SELECT * FROM jokes ORDER BY created_at DESC",
+      "SELECT * FROM jokes ORDER BY joke_created_at DESC",
     );
     res.json(rows);
   } catch (err) {
