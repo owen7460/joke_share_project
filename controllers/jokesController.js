@@ -4,7 +4,9 @@ const db = require("../db");
 
 const getJokes = async (req, res) => {
   try {
-    const [rows] = await db.query("SELECT * FROM jokes");
+    const [rows] = await db.query(
+      "SELECT * FROM jokes ORDER BY created_at DESC",
+    );
     res.json(rows);
   } catch (err) {
     console.error("DB error full:", err);
