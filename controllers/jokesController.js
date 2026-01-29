@@ -39,19 +39,33 @@ const upLoadJoke = async (req, res) => {
 };
 
 const likeJoke = async (req, res) => {
+  const { joke_id } = req.params;
+  const connection = await db.getConnection();
+
   try {
-    const { joke_id } = req.params;
-    const [result] = await db.query("INSERT INTO votes (joke_id) VALUES (?)", [
-      joke_id,
-    ]);
+    await connection.beginTransaction();
+
+    const [result] = await connection.query(
+      "INSERT INTO votes (joke_id) VALUES (?)",
+      [joke_id],
+    );
+    await connection.query(
+      "UPDATE jokes SET like_count = like_count + 1 WHERE joke_id = ?",
+      [joke_id],
+    );
+
+    await connection.commit();
     res.status(200).json({
       message: "the joke has been liked",
       joke_id,
       vote_id: result.insertId,
     });
   } catch (err) {
+    await connection.rollback();
     console.error("DB error:", err);
     res.status(500).json({ error: "DB error" });
+  } finally {
+    connection.release();
   }
 };
 
