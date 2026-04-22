@@ -6,11 +6,11 @@ Backend for **Jokes Share**, a small web app for browsing, liking, and submittin
 
 [https://api.owenouyang.com/api/jokes](https://api.owenouyang.com/api/jokes)
 
-![API](./public/api.png)
+![API](./public/readme/api.png)
 
 [https://owenouyang.com](https://owenouyang.com)
 
-![Site](./public/jokes.png)
+![Site](./public/readme/jokes.png)
 
 ## Overview
 
